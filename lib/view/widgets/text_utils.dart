@@ -6,16 +6,16 @@ class TextUtils extends StatelessWidget {
   final Color color;
   final double fontSize;
   final FontWeight fontWeight;
-  //final TextDecoration underLine;
+  final TextDecoration underLine;
 
   const TextUtils({
     required this.fontSize,
     required this.fontWeight,
     required this.text,
     required this.color,
-   // required this.underLine,
+    required this.underLine,
     Key? key,
-  }) : super(key: key);
+  }):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TextUtils extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
         textStyle: TextStyle(
-          //decoration: underLine,
+          decoration: underLine,
           color: color,
           fontSize: fontSize,
           fontWeight: fontWeight,
