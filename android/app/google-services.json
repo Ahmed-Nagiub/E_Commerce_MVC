@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "224193109949",
+    "project_id": "arsoo-shop-getx-3d71a",
+    "storage_bucket": "arsoo-shop-getx-3d71a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224193109949:android:7cf93e866f11153f2ebcd4",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224193109949-m74o7ddri40gsb3st5vvpk860fmjqtic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAd_5pavfbKfv0bVU2XOzpWAOtRhOoJRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224193109949-m74o7ddri40gsb3st5vvpk860fmjqtic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

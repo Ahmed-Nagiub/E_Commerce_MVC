@@ -90,7 +90,9 @@ class WelcomeScreen extends StatelessWidget {
                       underLine: TextDecoration.none),
                     style:  ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(mainColor),
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))
+                    shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),),),
                   ),),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height/10),
@@ -104,7 +106,7 @@ class WelcomeScreen extends StatelessWidget {
                     }, child: TextUtils(fontSize: 15, fontWeight: FontWeight.normal,
                         text: "Sign up", color: Colors.white,underLine: TextDecoration.underline,))
                   ],
-                )
+                ),
               ],
             ),
           ),
