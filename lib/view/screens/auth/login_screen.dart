@@ -25,12 +25,12 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           leading: Container(),
-          backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+          backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white ,
           elevation: 0.0,
         ),
-        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 28,
                               fontWeight: FontWeight.w500,
                               text: "LOG",
-                              color: Get.isDarkMode ? mainColor : pinkClr,
+                              color: Get.isDarkMode ? pinkClr : mainColor ,
                               underLine: TextDecoration.none,
                             ),
                             SizedBox(width: 3,),
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                               fontSize: 28,
                               fontWeight: FontWeight.w500,
                               text: "IN",
-                              color: Get.isDarkMode ? Colors.black : Colors.white,
+                              color: Get.isDarkMode ? Colors.white : Colors.black,
                               underLine: TextDecoration.none,
                             ),
                           ],
@@ -73,8 +73,9 @@ class LoginScreen extends StatelessWidget {
                               return null;
                             }
                           },
-                          prefixIcon: Get.isDarkMode ?Image.asset('assets/images/email.png'):
-                          Icon(Icons.mail,color: pinkClr,size: 30),
+                          prefixIcon: Get.isDarkMode ?
+                          Icon(Icons.mail,color: pinkClr,size: 30):
+                          Image.asset('assets/images/email.png'),
                           suffixIcon: Text(""),
                           hintText: "Email",
                           keyboardType: TextInputType.emailAddress,
@@ -92,8 +93,9 @@ class LoginScreen extends StatelessWidget {
                                   return null;
                                 }
                               },
-                              prefixIcon: Get.isDarkMode ? Image.asset('assets/images/lock.png'):
-                              Icon(Icons.lock,color: pinkClr,size: 30,),
+                              prefixIcon: Get.isDarkMode
+                              ? Icon(Icons.lock,color: pinkClr,size: 30,)
+                              : Image.asset('assets/images/lock.png'),
                               suffixIcon: IconButton(
                                 icon: controller.isVisibility ?
                                 const Icon(Icons.visibility_off,color: Colors.black,):
@@ -115,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                                 text: "Forgot Password?",
-                                color:Get.isDarkMode ? Colors.black : Colors.white ,
+                                color:Get.isDarkMode ? Colors.white : Colors.black ,
                                 underLine: TextDecoration.none,
                               ),
                           ),
@@ -138,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           text: "OR",
-                          color: Get.isDarkMode ? Colors.black : Colors.white,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
                           underLine: TextDecoration.none,
                         ),
                         SizedBox(height: 50,),

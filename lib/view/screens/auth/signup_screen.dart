@@ -28,12 +28,12 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           leading: Container(),
-          backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
+          backgroundColor: Get.isDarkMode ? darkGreyClr : Colors.white,
           elevation: 0.0,
         ),
-        backgroundColor: Get.isDarkMode ? Colors.white : darkGreyClr,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -52,21 +52,23 @@ class SignUpScreen extends StatelessWidget {
                               fontSize: 28,
                               fontWeight: FontWeight.w500,
                               text: "SIGN",
-                              color: Get.isDarkMode ? mainColor : pinkClr,
+                              color: Get.isDarkMode ? pinkClr : mainColor,
                               underLine: TextDecoration.none,
                             ),
-                            SizedBox(width: 3,),
+                            SizedBox(
+                              width: 3,
+                            ),
                             TextUtils(
                               fontSize: 28,
                               fontWeight: FontWeight.w500,
                               text: "UP",
                               color:
-                                  Get.isDarkMode ? Colors.black : Colors.white,
+                                  Get.isDarkMode ? Colors.white : Colors.black,
                               underLine: TextDecoration.none,
                             ),
                           ],
                         ),
-                        SizedBox(height: 50,),
+                        SizedBox(height: 50),
                         AuthTextFormField(
                           controller: nameController,
                           obscureText: false,
@@ -79,17 +81,13 @@ class SignUpScreen extends StatelessWidget {
                             }
                           },
                           prefixIcon: Get.isDarkMode
-                              ? Image.asset('assets/images/user.png')
-                              : Icon(
-                                  Icons.person,
-                                  color: pinkClr,
-                                  size: 30,
-                                ),
+                              ? Icon(Icons.person, color: pinkClr, size: 30)
+                              : Image.asset('assets/images/user.png'),
                           suffixIcon: Text(""),
                           hintText: "User Name",
                           keyboardType: TextInputType.text,
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20),
                         AuthTextFormField(
                           controller: emailController,
                           obscureText: false,
@@ -101,13 +99,13 @@ class SignUpScreen extends StatelessWidget {
                             }
                           },
                           prefixIcon: Get.isDarkMode
-                              ? Image.asset('assets/images/email.png')
-                              : Icon(Icons.mail, color: pinkClr, size: 30),
+                              ? Icon(Icons.mail, color: pinkClr, size: 30)
+                              : Image.asset('assets/images/email.png'),
                           suffixIcon: Text(""),
                           hintText: "Email",
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20),
                         GetBuilder<AuthController>(
                           builder: (_) {
                             return AuthTextFormField(
@@ -122,12 +120,8 @@ class SignUpScreen extends StatelessWidget {
                                 }
                               },
                               prefixIcon: Get.isDarkMode
-                                  ? Image.asset('assets/images/lock.png')
-                                  : Icon(
-                                      Icons.lock,
-                                      color: pinkClr,
-                                      size: 30,
-                                    ),
+                                  ? Icon(Icons.lock, color: pinkClr, size: 30)
+                                  : Image.asset('assets/images/lock.png'),
                               suffixIcon: IconButton(
                                 icon: controller.isVisibility
                                     ? const Icon(
@@ -147,14 +141,14 @@ class SignUpScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20),
                         CheckWidget(),
-                        SizedBox(height: 50,),
+                        SizedBox(height: 50),
                         GetBuilder<AuthController>(
                           builder: (_) {
                             return AuthButton(
                               onPressed: () async {
-                                if(controller.isCheckBox == false){
+                                if (controller.isCheckBox == false) {
                                   Get.snackbar(
                                     "Check Box",
                                     'Please, Accept terms & condition',
@@ -162,7 +156,7 @@ class SignUpScreen extends StatelessWidget {
                                     backgroundColor: Colors.grey.shade700,
                                     colorText: Colors.white,
                                   );
-                                }else if (formKey.currentState!.validate()) {
+                                } else if (formKey.currentState!.validate()) {
                                   String name = nameController.text.trim();
                                   String email = emailController.text.trim();
                                   String password = passwordController.text;

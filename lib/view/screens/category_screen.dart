@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -7,10 +9,9 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-
-          ),
-          body: Center(child: Text("Category Screen")),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Center(child: Text("Category Screen",
+            style: TextStyle(color:Get.isDarkMode ? Colors.white : darkGreyClr),)),
         ));
   }
 }

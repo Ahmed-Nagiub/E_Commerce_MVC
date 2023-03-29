@@ -8,10 +8,10 @@ import 'package:get/get_core/src/get_main.dart';
 class CheckWidget extends StatelessWidget {
   CheckWidget({Key? key}) : super(key: key);
   final controller = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-        builder: (_){
+    return GetBuilder<AuthController>(builder: (_) {
       return Row(
         children: [
           InkWell(
@@ -25,27 +25,33 @@ class CheckWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.shade200,
               ),
-              child: controller.isCheckBox ?
-              Get.isDarkMode ? Image.asset("assets/images/check.png"):
-              Icon(Icons.done,color: pinkClr,) :
-              Container(),
+              child: controller.isCheckBox
+                  ? Get.isDarkMode
+                      ? Icon(
+                          Icons.done,
+                          color: pinkClr,
+                        )
+                      : Image.asset("assets/images/check.png")
+                  : Container(),
             ),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Row(
-            children:  [
+            children: [
               TextUtils(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
                 text: 'I accept ',
-                color: Get.isDarkMode ? Colors.black : Colors.white,
+                color: Get.isDarkMode ? Colors.white : Colors.black,
                 underLine: TextDecoration.none,
               ),
               TextUtils(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
                 text: 'terms & condition ',
-                color: Get.isDarkMode ? Colors.black : Colors.white,
+                color: Get.isDarkMode ? Colors.white : Colors.black,
                 underLine: TextDecoration.underline,
               ),
             ],

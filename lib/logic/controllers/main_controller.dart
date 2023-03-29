@@ -14,4 +14,11 @@ class MainController extends GetxController {
     SettingsScreen(),
   ].obs;
 
+  final title = [
+    "Asroo Shop",
+    "Categories",
+    "Favorites",
+    "Settings",
+  ].obs;
+
 }

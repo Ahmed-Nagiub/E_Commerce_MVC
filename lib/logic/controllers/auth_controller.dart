@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
@@ -14,6 +15,10 @@ class AuthController extends GetxController {
   var displayUserPhoto = '';
   GoogleSignIn googleSignIn = GoogleSignIn();
   FaceBookModel? faceBookModel;
+  var isSignedIn = false;
+  final GetStorage authBox = GetStorage();
+
+
 
   void visibility() {
     isVisibility = !isVisibility;
@@ -25,11 +30,10 @@ class AuthController extends GetxController {
     update();
   }
 
-  void signUpUsingFirebase({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
+  void signUpUsingFirebase(
+      {required String name,
+      required String email,
+      required String password}) async {
     try {
       await auth
           .createUserWithEmailAndPassword(
@@ -40,6 +44,7 @@ class AuthController extends GetxController {
                 displayUserName = name,
                 auth.currentUser!.updateDisplayName(name),
               });
+
       update();
       Get.offNamed(Routes.mainScreen);
     } on FirebaseAuthException catch (error) {
@@ -67,11 +72,14 @@ class AuthController extends GetxController {
     }
   }
 
-  void logInUsingFirebase({required String email, required String password}) async {
+  void logInUsingFirebase(
+      {required String email, required String password}) async {
     try {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) => displayUserName == auth.currentUser!.displayName!);
+      isSignedIn = true;
+      authBox.write('auth', isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     } on FirebaseAuthException catch (error) {
@@ -100,11 +108,15 @@ class AuthController extends GetxController {
   }
 
   void googleSignUpApp() async {
-    try{
+    try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       displayUserName = googleUser!.displayName!;
-      displayUserPhoto= googleUser.photoUrl!;
-    }catch(error){
+      displayUserPhoto = googleUser.photoUrl!;
+      isSignedIn = true;
+      authBox.write('auth', isSignedIn);
+      update();
+      Get.offNamed(Routes.mainScreen);
+    } catch (error) {
       Get.snackbar(
         "Error!",
         error.toString(),
@@ -115,15 +127,13 @@ class AuthController extends GetxController {
     }
   }
 
-  void faceBookSignUpApp() async{
+  void faceBookSignUpApp() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
-    if(loginResult.status == LoginStatus.success){
+    if (loginResult.status == LoginStatus.success) {
       final data = await FacebookAuth.instance.getUserData();
       faceBookModel = FaceBookModel.fromJson(data);
-      print('==============');
-      print(faceBookModel!.email);
-      print(faceBookModel!.name);
-      print('==============');
+      isSignedIn = true;
+      authBox.write('auth', isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     }
@@ -139,7 +149,7 @@ class AuthController extends GetxController {
       String message = '';
       if (error.code == 'user-not-found') {
         message = 'No user found for that email.';
-      }else {
+      } else {
         error.message.toString();
       }
       Get.snackbar(title, message,
@@ -157,5 +167,25 @@ class AuthController extends GetxController {
     }
   }
 
-  void signOutFromApp() {}
+  void signOutFromApp() async {
+    try{
+      await auth.signOut();
+      await googleSignIn.signOut();
+      await FacebookAuth.i.logOut();
+      displayUserName = '';
+      displayUserPhoto = '';
+      isSignedIn = false;
+      authBox.remove('auth');
+      update();
+      Get.offNamed(Routes.welcomeScreen);
+    }catch(error){
+      Get.snackbar(
+        "Error!",
+        error.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.grey.shade700,
+        colorText: Colors.white,
+      );
+    }
+  }
 }

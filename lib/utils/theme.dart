@@ -16,14 +16,41 @@ const Color languageSettings = Color(0xffCB256C);
 
 class ThemesApp {
   static final light = ThemeData(
-    primaryColor: mainColor,
-    backgroundColor: Colors.white,
-    brightness: Brightness.light,
+    //primaryColor: mainColor,
+    //brightness: Brightness.light,
+    colorScheme: const ColorScheme(
+      background: Colors.white,
+      brightness: Brightness.light,
+      primary: mainColor,
+      onPrimary: mainColor,
+      secondary: Colors.black,
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.red,
+      onBackground: Colors.black,
+      surface: Colors.black,
+      onSurface: Colors.black,
+    ),
   );
 
   static final dark = ThemeData(
-    primaryColor: darkGreyClr,
-    backgroundColor: darkGreyClr,
-    brightness: Brightness.dark,
+    //primaryColor: darkGreyClr,
+    //brightness: Brightness.dark,
+    textTheme: TextTheme(
+      titleMedium: TextStyle(color: Colors.black)
+    ),
+    colorScheme: const ColorScheme(
+      background: darkGreyClr,
+      brightness: Brightness.dark,
+      primary: darkGreyClr,
+      onPrimary: pinkClr,
+      secondary: Colors.black,
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.red,
+      onBackground: Colors.black,
+      surface: Colors.black,
+      onSurface: Colors.black,
+    ),
   );
 }
