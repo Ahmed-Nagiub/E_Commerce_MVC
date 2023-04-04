@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/logic/controllers/cart_controller.dart';
+import 'package:e_commerce_app/logic/controllers/category_controller.dart';
 import 'package:e_commerce_app/logic/controllers/product_controller.dart';
 import 'package:e_commerce_app/model/product_models.dart';
 import 'package:e_commerce_app/utils/theme.dart';
@@ -7,68 +8,63 @@ import 'package:e_commerce_app/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CardItems extends StatelessWidget {
-  CardItems({Key? key}) : super(key: key);
+
+class CategoryItems extends StatelessWidget {
+  final String catehoryTitle;
+  CategoryItems({
+    required this.catehoryTitle,
+    Key? key,
+  }) : super(key: key);
+
   final controller = Get.find<ProductController>();
+
   final cartController = Get.find<CartController>();
+
+  final categoryController = Get.find<CategoryController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.isLoading.value) {
-        return Center(
-          child: CircularProgressIndicator(
-            color: Get.isDarkMode ? pinkClr : mainColor,
-          ),
-        );
-      } else {
-        return Expanded(
-          child: controller.searchList.isEmpty &&
-                  controller.searchTextController.text.isNotEmpty
-              ? Get.isDarkMode
-                  ? Image.asset("assets/images/search_empty_dark.png")
-                  : Image.asset("assets/images/search_empty_light.png")
-              : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: 9.0,
-                    crossAxisSpacing: 6,
-                    maxCrossAxisExtent: 200,
-                  ),
-                  itemCount: controller.searchList.isEmpty
-                      ? controller.productList.length
-                      : controller.searchList.length,
-                  itemBuilder: (context, index) {
-                    if (controller.searchList.isEmpty) {
-                      return buildCardItems(
-                          image: controller.productList[index].image,
-                          price: controller.productList[index].price,
-                          rate: controller.productList[index].rating.rate,
-                          productId: controller.productList[index].id,
-                          productModels: controller.productList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModels: controller.productList[index],
-                                ));
-                          });
-                    } else {
-                      return buildCardItems(
-                          image: controller.searchList[index].image,
-                          price: controller.searchList[index].price,
-                          rate: controller.searchList[index].rating.rate,
-                          productId: controller.searchList[index].id,
-                          productModels: controller.searchList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModels: controller.searchList[index],
-                                ));
-                          });
-                    }
-                  },
-                ),
-        );
-      }
-    });
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        title: Text(catehoryTitle,style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back,color: Colors.white,)),
+        backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
+      ),
+      body: Obx(() {
+        if (categoryController.isAllCategory.value) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Get.isDarkMode ? pinkClr : mainColor,
+            ),
+          );
+        } else {
+          return GridView.builder(
+            itemCount: categoryController.categoryList.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              childAspectRatio: 0.8,
+              mainAxisSpacing: 9.0,
+              crossAxisSpacing: 6.0,
+              maxCrossAxisExtent: 200,
+            ),
+            itemBuilder: (context, index) {
+              return buildCardItems(
+                  image: categoryController.categoryList[index].image,
+                  price: categoryController.categoryList[index].price,
+                  rate: categoryController.categoryList[index].rating.rate,
+                  productId: categoryController.categoryList[index].id,
+                  productModels: categoryController.categoryList[index],
+                  onTap: () {
+                    Get.to(() => ProductDetailsScreen(
+                      productModels: categoryController.categoryList[index],
+                    ));
+                  });
+            },
+          );
+        }
+      }),
+    );
   }
 
   Widget buildCardItems({
@@ -80,7 +76,7 @@ class CardItems extends StatelessWidget {
     required Function() onTap,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -98,7 +94,7 @@ class CardItems extends StatelessWidget {
           child: Column(
             children: [
               Obx(
-                () => Row(
+                    () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
@@ -106,22 +102,22 @@ class CardItems extends StatelessWidget {
                         controller.manageFavourites(productId);
                       },
                       icon: controller.isFavourites(productId)
-                          ? Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                          : Icon(
-                              Icons.favorite_outline,
-                              color: darkGreyClr,
-                            ),
+                          ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                          : const Icon(
+                        Icons.favorite_outline,
+                        color: Colors.black,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
                         cartController.addProductsToCart(productModels);
                       },
-                      icon: Icon(
-                        Icons.shopping_cart_sharp,
-                        color: darkGreyClr,
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -140,31 +136,33 @@ class CardItems extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "\$ $price",
                       style: const TextStyle(
-                          color: darkGreyClr, fontWeight: FontWeight.bold),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Container(
-                      width: 45,
                       height: 20,
+                      width: 45,
                       decoration: BoxDecoration(
-                        color: Get.isDarkMode ? pinkClr : mainColor,
+                        color: mainColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 3, right: 2),
+                        padding: const EdgeInsets.only(left: 3, right: 2),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextUtils(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
-                              text: '$rate',
+                              text: "$rate",
                               color: Colors.white,
                               underLine: TextDecoration.none,
                             ),
@@ -172,14 +170,14 @@ class CardItems extends StatelessWidget {
                               Icons.star,
                               size: 13,
                               color: Colors.white,
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

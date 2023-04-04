@@ -177,7 +177,7 @@ class AuthController extends GetxController {
       isSignedIn = false;
       authBox.remove('auth');
       update();
-      Get.offNamed(Routes.welcomeScreen);
+      Get.offAllNamed(Routes.welcomeScreen);
     }catch(error){
       Get.snackbar(
         "Error!",

@@ -19,16 +19,24 @@ class CartScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: const Text("Cart Items"),
+          title: const Text("Cart Items",style: TextStyle(
+            color: Colors.white,
+          ),),
           elevation: 0,
           backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back,color: Colors.white,),
+          ),
           actions: [
             IconButton(
               onPressed: () {
                 controller.clearAllProducts();
               },
-              icon: const Icon(Icons.backspace),
+              icon: const Icon(Icons.backspace,color: Colors.white,),
             ),
           ],
         ),
