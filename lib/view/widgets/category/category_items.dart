@@ -125,7 +125,7 @@ class CategoryItems extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                height: 140,
+                height: 100,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),

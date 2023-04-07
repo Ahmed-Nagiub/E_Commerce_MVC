@@ -12,8 +12,10 @@ class CardItems extends StatelessWidget {
   final controller = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
 
+
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Obx(() {
       if (controller.isLoading.value) {
         return Center(
@@ -46,6 +48,7 @@ class CardItems extends StatelessWidget {
                           rate: controller.productList[index].rating.rate,
                           productId: controller.productList[index].id,
                           productModels: controller.productList[index],
+                          h: h* 1/9,
                           onTap: () {
                             Get.to(() => ProductDetailsScreen(
                                   productModels: controller.productList[index],
@@ -58,6 +61,7 @@ class CardItems extends StatelessWidget {
                           rate: controller.searchList[index].rating.rate,
                           productId: controller.searchList[index].id,
                           productModels: controller.searchList[index],
+                          h: h* 1/9,
                           onTap: () {
                             Get.to(() => ProductDetailsScreen(
                                   productModels: controller.searchList[index],
@@ -77,6 +81,7 @@ class CardItems extends StatelessWidget {
     required double rate,
     required int productId,
     required ProductModels productModels,
+    required double h,
     required Function() onTap,
   }) {
     return Padding(
@@ -84,6 +89,7 @@ class CardItems extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
+          height: 140,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -129,7 +135,7 @@ class CardItems extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                height: 140,
+                height: h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
