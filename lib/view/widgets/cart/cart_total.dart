@@ -53,7 +53,7 @@ class CartTotal extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: () {
-                  // Get.toNamed(Routes.paymentScreen);
+                  Get.toNamed(Routes.paymentScreen);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
